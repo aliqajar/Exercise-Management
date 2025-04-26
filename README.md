@@ -50,8 +50,3 @@ Once the application is running, access the API documentation at:
 docker compose exec web pytest -v
 ```
 
-## Submission Information
-This solution is submitted in the `main` branch of this private repository. As requested, I have invited the following collaborator:
-- Username: prehab-takehome-reviewer
-- Email: takehometest@theprehabguys.com
-"# Exercise-Management" 
