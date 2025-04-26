@@ -1,0 +1,3 @@
+"""
+Exercise Management API Application
+""" 
