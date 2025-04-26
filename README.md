@@ -19,13 +19,26 @@ A RESTful API for managing exercises built with:
 
 ## Requirements
 - Docker and Docker Compose
+- Node.js/npm (for frontend development)
 
-## Running the Application
+## Running the Backend
 ```bash
 docker compose up --build
 ```
 
 The server will start at `http://localhost:8000`
+
+## Running the Frontend (Development Mode)
+The frontend is developed separately from the backend to enable faster development:
+
+```bash
+# From the project root
+cd frontend
+npm install
+npm start
+```
+
+The frontend will be available at `http://localhost:3000` and will automatically proxy API requests to the backend running on port 8000.
 
 ## Database Migrations
 Migrations are handled automatically on startup, but you can also run them manually:
