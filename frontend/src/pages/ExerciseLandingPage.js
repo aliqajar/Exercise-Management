@@ -344,82 +344,6 @@ const ExerciseLandingPage = () => {
     navigate('/login');
   };
 
-  // Update the test function to use axios
-  const testDirectFetch = async () => {
-    try {
-      const token = localStorage.getItem('accessToken');
-      console.log('Testing with token:', token?.substring(0, 20) + '...');
-      
-      if (!token) {
-        setNotification({
-          open: true,
-          message: 'No token in localStorage!',
-          severity: 'error'
-        });
-        return;
-      }
-      
-      // Create axios config
-      const config = {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      };
-      
-      console.log('Direct axios headers:', config.headers);
-      
-      // Try a simple GET first
-      try {
-        console.log('Attempting GET to:', axios.defaults.baseURL + '/exercises');
-        const getResponse = await axios.get('/exercises', config);
-        console.log('Direct GET status:', getResponse.status);
-        console.log('GET data:', getResponse.data);
-      } catch (getErr) {
-        console.error('GET failed:', getErr.response?.status, getErr.message);
-        console.error('Full error response:', getErr.response?.data);
-      }
-      
-      // Now try a POST
-      const testData = {
-        name: 'Test Exercise',
-        description: 'Created with direct axios',
-        difficulty_level: 3,
-        is_public: true
-      };
-      
-      try {
-        console.log('Attempting POST to:', axios.defaults.baseURL + '/exercises');
-        const postResponse = await axios.post('/exercises', testData, config);
-        console.log('Direct POST status:', postResponse.status);
-        console.log('Success creating exercise!', postResponse.data);
-        
-        setNotification({
-          open: true,
-          message: 'Direct axios worked! Created exercise ID: ' + postResponse.data.id,
-          severity: 'success'
-        });
-        fetchExercises();
-      } catch (postErr) {
-        console.error('POST failed:', postErr.response?.status);
-        console.error('Error details:', postErr.response?.data);
-        
-        setNotification({
-          open: true,
-          message: 'Direct axios failed: ' + (postErr.response?.data?.detail || postErr.message),
-          severity: 'error'
-        });
-      }
-    } catch (err) {
-      console.error('Error in direct axios test:', err);
-      setNotification({
-        open: true,
-        message: 'Error in direct test: ' + err.message,
-        severity: 'error'
-      });
-    }
-  };
-
   // Sidebar drawer content
   const drawer = (
     <div>
@@ -583,18 +507,6 @@ const ExerciseLandingPage = () => {
             />
           </Box>
         </Paper>
-
-        {/* Test Button */}
-        <Box sx={{ mb: 3, display: 'flex', justifyContent: 'center' }}>
-          <Button 
-            variant="outlined" 
-            color="secondary"
-            onClick={testDirectFetch}
-            sx={{ mb: 2 }}
-          >
-            Test Direct API Fetch
-          </Button>
-        </Box>
 
         {/* Exercise List */}
         <Grid container spacing={3}>

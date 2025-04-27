@@ -63,3 +63,19 @@ Once the application is running, access the API documentation at:
 docker compose exec web pytest -v
 ```
 
+## User Interface
+
+The application features a clean, modern UI built with React and Material-UI.
+
+### Login
+![Login Screen](media/login.png)
+
+### Signup
+![Signup Screen](media/signup.png)
+
+### Exercise Landing Page
+![Landing Page](media/landing.png)
+
+### Add New Exercise
+![Add New Exercise](media/add_new.png)
+
