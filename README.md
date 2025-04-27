@@ -68,10 +68,10 @@ docker compose exec web pytest -v
 The application features a clean, modern UI built with React and Material-UI.
 
 ### Login
-![Login Screen](media/login.png)
+<img src="media/login.png" width="70%" alt="Login Screen">
 
 ### Signup
-![Signup Screen](media/signup.png)
+<img src="media/signup.png" width="70%" alt="Signup Screen">
 
 ### Exercise Landing Page
 ![Landing Page](media/landing.png)
