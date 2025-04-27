@@ -24,29 +24,31 @@ const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [showError, setShowError] = useState(false);
+  const [success, setSuccess] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError('');
     
     // Validate passwords match
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       setShowError(true);
+      setLoading(false);
       return;
     }
     
-    setLoading(true);
-    setError('');
-    
     try {
       await authService.register(username, password);
+      setSuccess('Registration successful! Please log in.');
+      setShowSuccess(true);
       
-      // After successful registration, log in the user
-      await authService.login(username, password);
-      
-      // Redirect to dashboard or home page
-      alert('Registration successful!');
-      // navigate('/dashboard'); // Uncomment when dashboard is created
+      // Redirect to login page after a short delay
+      setTimeout(() => {
+        navigate('/login');
+      }, 1500);
     } catch (err) {
       setError(err.message || 'An error occurred during registration');
       setShowError(true);
@@ -57,6 +59,10 @@ const RegisterPage = () => {
 
   const handleCloseError = () => {
     setShowError(false);
+  };
+
+  const handleCloseSuccess = () => {
+    setShowSuccess(false);
   };
 
   return (
@@ -151,6 +157,11 @@ const RegisterPage = () => {
       <Snackbar open={showError} autoHideDuration={6000} onClose={handleCloseError}>
         <Alert onClose={handleCloseError} severity="error" sx={{ width: '100%' }}>
           {error}
+        </Alert>
+      </Snackbar>
+      <Snackbar open={showSuccess} autoHideDuration={6000} onClose={handleCloseSuccess}>
+        <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: '100%' }}>
+          {success}
         </Alert>
       </Snackbar>
     </Container>

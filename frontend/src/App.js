@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import ExerciseLandingPage from './pages/ExerciseLandingPage';
 
 // Create a custom theme
 const theme = createTheme({
@@ -42,8 +43,13 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/exercises" element={
+          <ProtectedRoute>
+            <ExerciseLandingPage />
+          </ProtectedRoute>
+        } />
         <Route path="/" element={
-          <Navigate to="/login" />
+          isAuthenticated() ? <Navigate to="/exercises" /> : <Navigate to="/login" />
         } />
       </Routes>
     </ThemeProvider>

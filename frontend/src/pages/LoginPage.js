@@ -30,13 +30,25 @@ const LoginPage = () => {
     setError('');
     
     try {
-      await authService.login(username, password);
+      // Get the login data
+      const result = await authService.login(username, password);
       
-      // Redirect to dashboard or home page
-      // For now, we'll just show a success message
+      // DEBUG: Double-check token storage
+      console.log('Login successful!');
+      console.log('Access token from response:', result.access_token);
+      console.log('Stored in localStorage?', !!localStorage.getItem('accessToken'));
+      console.log('Token value from localStorage:', localStorage.getItem('accessToken')?.substring(0, 20) + '...');
+      
+      // Directly set token in localStorage again to be sure
+      localStorage.setItem('accessToken', result.access_token);
+      localStorage.setItem('refreshToken', result.refresh_token);
+      
+      // Confirm again
+      console.log('Token after direct set:', localStorage.getItem('accessToken')?.substring(0, 20) + '...');
+      
+      // Redirect to exercises landing page
       setError('');
-      alert('Login successful!');
-      // navigate('/dashboard'); // Uncomment when dashboard is created
+      navigate('/exercises');
     } catch (err) {
       setError(err.message || 'An error occurred during login');
       setShowError(true);
